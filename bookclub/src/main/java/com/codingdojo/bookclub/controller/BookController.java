@@ -51,6 +51,10 @@ public class BookController {
 	
 	@RequestMapping("/{id}")
 	public String show(HttpSession session, @PathVariable("id") Long id, Model model) {
+		if (session.getAttribute("user") == null) {
+			return "redirect:/logout";
+		}
+		
 		Book result = bookService.find(id);
 		model.addAttribute("book", result);
 		
